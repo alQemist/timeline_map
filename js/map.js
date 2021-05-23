@@ -152,7 +152,7 @@ var load = function (data) {
         .style("text-anchor","start")
 
     svg.append("text")
-        .text("Insprired by map and data at https://onemocneni-aktualne.mzcr.cz/covid-19")
+        .text("Inspired by map and data at https://onemocneni-aktualne.mzcr.cz/covid-19")
         .classed("legend-text", true)
         .attr("x", svg_width + "px")
         .attr("y", svg_height*.95+"px")
