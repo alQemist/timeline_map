@@ -1,0 +1,80 @@
+body {
+    margin:40px;
+    font-family: Arial, sans-serif;
+}
+
+.map_svg{
+    opacity: 0;
+}
+
+.okres_label{
+    font-size: .3em;
+    fill:white;
+   text-shadow: 1px 1px 2px black;
+}
+.okres_segment {
+    stroke-width: .5;
+    stroke: rgb(255, 255, 255);
+}
+
+.legend text{
+    font-size: .3em;
+    fill:black;
+}
+.badge{
+    fill:red;
+}
+.badge-count{
+    fill:white;
+    font-size: .2em;
+}
+.ticker{
+    position: absolute;
+    left:70%;
+    font-size: 6em;
+    color:lightgray;
+    user-select: none;
+    opacity: .1;
+    top:-60px;
+}
+.ticker-rect{
+    fill:RGBa(50,50,50,.5);
+    cursor: pointer;
+    stroke-width:.2px;
+}
+.ticker-bristle{
+    fill:RGBa(50,50,50,.1);
+    cursor: pointer;
+}
+.ticker-date{
+    font-size: 1.2em;
+    fill:black;
+    user-select: none;
+}
+.ticker-count, .legend-text{
+    font-size: .4em;
+    fill:black;
+    text-anchor: middle;
+}
+.legend-text{
+    font-size: .3em !important;
+    fill:RGBa(50,50,50,.8);
+}
+.play{
+    cursor: pointer;
+    opacity:.6;
+    font-size: .6em;
+}
+.player{
+   fill:RGBa(50,50,50,.1) !important;
+    text-anchor: middle;
+    cursor: pointer;
+}
+.title-text{
+    position: absolute;
+    font-size: .6em;
+    text-transform: uppercase;
+}
+.map , .map-points{
+    transform:translate(10px,20px) scale(.94);
+}

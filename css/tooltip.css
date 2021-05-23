@@ -1,0 +1,17 @@
+.tooltip {
+    max-width: 400px;
+    min-width: 200px;
+    height: auto;
+    position: absolute;
+    top: 15%;
+    left: -4000px;
+    opacity: 0;
+    padding: 10px;
+    background: rgba(50, 50, 50, .9);
+    color: white;
+}
+
+.tool-content {
+    margin-top: 30px !important;
+    z-index: 0 !important;
+}
