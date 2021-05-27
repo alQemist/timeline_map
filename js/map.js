@@ -43,7 +43,7 @@ var togglePlayer = function(){
         if(intv >= dates_list.length){
             intv = 0
         }
-        setInterval(colorize, duration)
+        coloring = setInterval(colorize, duration)
     }
 
     d3.selectAll(".play")
@@ -73,7 +73,7 @@ var load = function (data) {
     var tickerBB = ticker_date.node().getBBox()
 
     var lx = svg_width * .90
-    var legend_width = 18//window.innerWidth * scale
+    var legend_scale = 120
     var ticker_width = tickerBB.width
     var ticker_height = tickerBB.height
 
@@ -170,8 +170,8 @@ var load = function (data) {
     dates.forEach(function (d, i) {
 
         let y = (rowspacing * i) + ticker_count_y + 2
-        let w = Math.max.apply(Math, [legend_width * (dates_list[d]['counts'] / max_count), 5]) * .8
-        w = legend_width * (dates_list[d]['counts'] / max_count)*.8
+        let w = Math.max.apply(Math, [legend_scale * (dates_list[d]['counts'] / max_count), 5]) * .8
+        w = legend_scale * (dates_list[d]['counts'] / max_count)*.8
         let rextx = lx - w * .5
 
         ticker_g.append("rect")
@@ -289,12 +289,18 @@ function colorize(t) {
         })
     d3.selectAll(".ticker-rect")
         .style("fill", function (d, i) {
-            c = (i == child) ? "RGBa(250,50,50,1)": "RGBa(50,50,50,.1)"
+            c = (i == child) ? "RGBa(250,50,50,1)": "RGBa(50,50,50,.5)"
             return c
         })
         .style("stroke", function (d, i) {
             c = (i == child) ? "RGBa(250,50,50,1)": "RGBa(50,50,50,.5)"
             return c
+        })
+        .transition()
+        .duration(1000)
+        .style("stroke-width",function(d,i){
+            w = (i == child) ? "3": ".2"
+            return w
         })
 
     const key = Object.keys(dates_list)[child]
