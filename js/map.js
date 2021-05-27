@@ -360,6 +360,9 @@ function colorize(t) {
     intv++
     if (intv > Object.keys(dates_list).length-1 || t) {
         clearInterval(coloring)
+        intv = 0
+        is_playing = !is_playing
+        togglePlayer()
     }
 
 }
