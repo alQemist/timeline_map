@@ -7,7 +7,7 @@ const setColor = function (i) {
 
 var is_playing = 0
 var dates_list = {}
-var vb_dim = [600, 300]
+var vb_dim = [600, 350]
 var aspect_ratio = vb_dim[1] / vb_dim[0]
 var dates
 var intv = 0
@@ -211,9 +211,14 @@ var load = function (data) {
 
     })
 
-    let obj = d3.select(".map_svg")
+    let obj = d3.selectAll(".map")
+
+    d3.selectAll(".map path").attr("transform","translate(10,30)")
+
     let g = obj.append("g")
         .classed("map-points",true)
+
+
 
     let paths = obj.selectAll("path")
         .each(function (d, i) {
@@ -227,12 +232,12 @@ var load = function (data) {
                 .style("opacity", .1)
 
             let bb = obj.node().getBBox()
-            let tx = bb.x + bb.width * .48
-            let ty = bb.y + bb.height / 2
+            let tx = bb.x + (bb.width * .48) + 20
+            let ty = bb.y + (bb.height / 2) + 20
 
-            let rx = (bb.x + bb.width * .55) + (txt.length * 1.3)
-            let ry = (bb.y + bb.height / 2) - 1.5
-            let vy = ry + 1
+            let rx = (bb.x + bb.width * .55) + (txt.length * 1.3) + 20
+            let ry = (bb.y + bb.height / 2) - 1.5 + 20
+            let vy = (ry + 1)
             let kod = obj.attr("class")
             let kod_id = kod.split("okres_segment code_")[1]
 
@@ -255,7 +260,9 @@ var load = function (data) {
                 .style("text-anchor", "middle")
                 .attr("transform", "translate (" + rx + "," + vy + ")")
                 .style("opacity", 0)
+
         })
+
 
     d3.select(".map_svg")
         .transition()
