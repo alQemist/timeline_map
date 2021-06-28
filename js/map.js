@@ -16,9 +16,13 @@ var legend_text
 var max_count = 0
 var coloring;
 var scale = .30
-var svg_scale = (window.innerWidth - 350) / vb_dim[0]
+var svg_scale = (window.innerHeight - 300) / vb_dim[1]
 var svg_width = window.innerWidth / svg_scale
 var svg_height = svg_width * aspect_ratio
+var data_source = ["map.json","umrti_map.json"]
+var source_label = ["Weekly New Cases","Weekly Deaths"]
+var data_source_index = 0
+
 const duration = 2000
 
 var svg = d3.selectAll(".map_svg")
@@ -28,6 +32,18 @@ var svg = d3.selectAll(".map_svg")
     })
 
 var tooltip = d3.select(".tooltip")
+
+var data_selector = d3.select(".data-source")
+    .on("change",function(e) {
+
+        let o = d3.select(this)
+        data_source_index = o.node().value
+        let v = data_source[data_source_index]
+
+        d3.json("data/" + v, function (data) {
+            load(data)
+        })
+    })
 
 tooltip.on("mouseleave", function () {
     showTooltip()
@@ -61,9 +77,13 @@ var load = function (data) {
 
     dates_list = data['datum'];
 
+    d3.select(".ticker").html("")
     d3.select(".ticker").html(dates[0])
+    d3.selectAll(".ticker-text, .player_g, .ticker-date, .legend").remove()
 
     var ticker_g = svg.append("g")
+        .classed("ticker-text",true)
+
     var ticker_date = ticker_g.append("text")
         .classed("ticker-date", true)
         .text(dates[0])
@@ -81,15 +101,17 @@ var load = function (data) {
         .append("g")
         .classed("legend", true)
 
+
     let bristle_x = svg_width * .84
     let bristle_y = tickerBB.y * scale
     let bristle_w = ticker_width / dates.length
     let bristle_h = ticker_height
     let ticker_count_y = bristle_y + bristle_h + 6
 
-    var rowspacing = ((svg_height * .9) - ticker_count_y) / dates.length
+    var rowspacing = ((svg_height * .8) - ticker_count_y) / dates.length
 
     var player = svg.append("g")
+        .classed("player_g",true)
 
     player.append("rect")
         .classed("player", true)
@@ -132,7 +154,9 @@ var load = function (data) {
 
 
     ticker_count = ticker_g.append("text")
-        .text("Weekly New Cases: 0")
+        .text(function() {
+            return source_label[data_source_index] + ": 0"
+        })
         .classed("ticker-count", true)
         .attr("x", lx + "px")
         .attr("y", ticker_count_y + "px")
@@ -361,7 +385,8 @@ function colorize(t) {
                     let c = item['data'][id]
                     return c
                 })
-            ticker_count.text("Weekly New Cases: " + new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 }).format(item['counts']))
+            let label_text = source_label[data_source_index]
+            ticker_count.text(label_text+": " + new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 }).format(item['counts']))
         })
 
     intv++

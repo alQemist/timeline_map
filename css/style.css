@@ -6,7 +6,13 @@ body {
 .map_svg{
     opacity: 0;
 }
-
+.data-source{
+    position: absolute;
+    left:45%;
+    top:3%;
+    font-size: 2em !important;
+    padding:6px !important;
+}
 .okres_label{
     font-size: .3em;
     fill:white;
