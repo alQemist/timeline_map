@@ -10,8 +10,9 @@ body {
     position: absolute;
     left:45%;
     top:3%;
-    font-size: 2em !important;
+    font-size: 1em !important;
     padding:6px !important;
+    width:120px;
 }
 .okres_label{
     font-size: .3em;

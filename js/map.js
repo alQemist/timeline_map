@@ -20,8 +20,9 @@ var svg_scale = (window.innerHeight - 300) / vb_dim[1]
 var svg_width = window.innerWidth / svg_scale
 var svg_height = svg_width * aspect_ratio
 var data_source = ["map.json","umrti_map.json"]
-var source_label = ["Weekly New Cases","Weekly Deaths"]
+var source_label = ["New Cases","New Deaths"]
 var data_source_index = 0
+var total_cases = total_deaths = 0
 
 const duration = 2000
 
@@ -40,7 +41,24 @@ var data_selector = d3.select(".data-source")
         data_source_index = o.node().value
         let v = data_source[data_source_index]
 
+
+
         d3.json("data/" + v, function (data) {
+
+            let dates = Object.keys(data['datum'])
+            dates.forEach(function(d){
+                if(data_source_index == 0 ){
+                    total_cases += data.datum[d].counts
+                }else{
+                    total_deaths += data.datum[d].counts
+                }
+            })
+
+            console.log(total_cases,total_deaths)
+
+
+
+
             load(data)
         })
     })
@@ -169,7 +187,7 @@ var load = function (data) {
         .style("text-anchor","start")
 
     title_text = svg.append("text")
-        .text("Czech Republic COVID-19 Cases Weekly Timeline")
+        .text("Czech Republic COVID-19 Cases Timeline")
         .classed("title-text", true)
         .attr("x","40px")
         .attr("y","10px")
